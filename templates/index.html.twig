@@ -1,0 +1,63 @@
+{%  extends 'base.html.twig' %}
+{% block title %}Library{% endblock %}
+
+{% block body %}
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
+    <h1>Liste de livres</h1>
+    {% for book in books %}
+    <div>
+    Id: {{ book.id }}
+    <br>
+    Titre: {{ book.titre }}
+    <br>
+    Auteur: {{ book.auteur }}
+    <br>
+    Synopsis: {{ book.synopsis }}
+    <br>
+    <img src="{{ asset(book.image)}}" alt="{{book.titre}}">
+    <br>
+    </div>
+    {% endfor %}
+    <br>
+    <h1>Ajout de livres</h1>
+    <br>
+    {{ form_start(form) }}
+    <div class="form-group">
+        {{ form_errors(form.titre) }}
+        {{ form_label(form.titre) }}
+        {{ form_widget(form.titre, {'attr': {'class': 'form-control', 'placeholder': form.titre.vars.label} }) }}
+    </div>
+    <div class="form-group">
+        {{ form_errors(form.auteur) }}
+        {{ form_label(form.auteur) }}
+        {{ form_widget(form.auteur, {'attr': {'class': 'form-control', 'placeholder': form.auteur.vars.label} }) }}
+    </div>
+    <div class="form-group">
+        {{ form_errors(form.synopsis) }}
+        {{ form_label(form.synopsis) }}
+        {{ form_widget(form.synopsis, {'attr': {'class': 'form-control', 'placeholder': form.synopsis.vars.label} }) }}
+    </div>
+    <div class="form-group">
+        {{ form_errors(form.image) }}
+        {{ form_label(form.image) }}
+        {{ form_widget(form.image, {'attr': {'class': 'form-control', 'placeholder': form.image.vars.label} }) }}
+    </div>
+
+    <button type="submit" class="btn btn-info">Ajouter un livre</button>
+    {{ form_end(form) }}
+    <br>
+    <h1>Supression de livres</h1>
+    <br>
+    {{ form_start(deleteform) }}
+    <div class="form-group">
+        {{ form_errors(deleteform.id) }}
+        {{ form_label(deleteform.id) }}
+        {{ form_widget(deleteform.id, {'attr': {'class': 'form-control', 'placeholder': deleteform.id.vars.label} }) }}
+    </div>
+    <button type="submit" class="btn btn-info">Supprimer un livre</button>
+    {{ form_end(deleteform) }}
+{% endblock %}
